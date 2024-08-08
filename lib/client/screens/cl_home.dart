@@ -1,8 +1,6 @@
 import 'package:digital_menu/client/screens/cl_sign_up.dart';
 import 'package:digital_menu/services/responsive/responsive_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:digital_menu/client/widgets/input_fields.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

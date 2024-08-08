@@ -166,10 +166,15 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
           ),
           const SizedBox(height: 20.0),
-          Wrap(
-            alignment: WrapAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Already have an account? "),
+              Flexible(
+                child: Text(
+                  "Already have an account? ",
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               TextButton(
                 onPressed: () {
                   // Navigate to login page
@@ -180,7 +185,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
               ),
             ],
-          ),
+          )
         ],
       ),
     );
