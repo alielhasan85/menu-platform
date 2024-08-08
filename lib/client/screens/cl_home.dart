@@ -1,40 +1,29 @@
-import 'package:digital_menu/client/screens/cl_sign_up.dart';
-import 'package:digital_menu/services/responsive/responsive_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:digital_menu/client/screens/cl_sign_up.dart';
+import 'package:digital_menu/client/screens/cl_login.dart';
+import 'package:digital_menu/services/responsive/responsive_helper.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Home extends StatefulWidget {
+final authFormProvider = StateProvider<AuthForm>((ref) => AuthForm.login);
+
+enum AuthForm { login, signUp }
+
+class Home extends ConsumerWidget {
   const Home({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authForm = ref.watch(authFormProvider);
 
-class _HomeState extends State<Home> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[50],
       body: ResponsiveHelper.isMobile(context)
           ? Column(
               children: [
-                _buildSideContent(),
+                _buildSideContent(context),
                 Expanded(
                   child: SingleChildScrollView(
-                    child: _buildFormContent(context),
+                    child: _buildFormContent(context, authForm, ref),
                   ),
                 ),
               ],
@@ -47,10 +36,10 @@ class _HomeState extends State<Home> {
                 elevation: 5.0,
                 child: Row(
                   children: [
-                    _buildSideContent(),
+                    _buildSideContent(context),
                     Expanded(
                       child: SingleChildScrollView(
-                        child: _buildFormContent(context),
+                        child: _buildFormContent(context, authForm, ref),
                       ),
                     ),
                   ],
@@ -60,7 +49,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _buildSideContent() {
+  Widget _buildSideContent(BuildContext context) {
     return Container(
       width: ResponsiveHelper.isMobile(context)
           ? double.infinity
@@ -121,7 +110,13 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _buildFormContent(BuildContext context) {
+  Widget _buildFormContent(
+      BuildContext context, AuthForm authForm, WidgetRef ref) {
+    final formKey = GlobalKey<FormState>();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final confirmPasswordController = TextEditingController();
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(40.0),
@@ -136,12 +131,24 @@ class _HomeState extends State<Home> {
             elevation: 5.0,
             child: Padding(
               padding: const EdgeInsets.all(40.0),
-              child: SignUpForm(
-                formKey: _formKey,
-                emailController: _emailController,
-                passwordController: _passwordController,
-                confirmPasswordController: _confirmPasswordController,
-              ),
+              child: authForm == AuthForm.login
+                  ? LoginForm(
+                      formKey: formKey,
+                      emailController: emailController,
+                      passwordController: passwordController,
+                      onToggle: () => ref
+                          .read(authFormProvider.notifier)
+                          .state = AuthForm.signUp,
+                    )
+                  : SignUpForm(
+                      formKey: formKey,
+                      emailController: emailController,
+                      passwordController: passwordController,
+                      confirmPasswordController: confirmPasswordController,
+                      onToggle: () => ref
+                          .read(authFormProvider.notifier)
+                          .state = AuthForm.login,
+                    ),
             ),
           ),
         ),
