@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:digital_menu/client/widgets/input_fields.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -50,21 +49,6 @@ class _LoginFormState extends State<LoginForm> {
     setState(() {
       _isLoading = true;
     });
-
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: widget.emailController.text,
-        password: widget.passwordController.text,
-      );
-      // Handle success (e.g., navigate to another screen)
-    } on FirebaseAuthException catch (e) {
-      // Handle error (e.g., show a dialog or Snackbar)
-      print(e.message);
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
 
   @override

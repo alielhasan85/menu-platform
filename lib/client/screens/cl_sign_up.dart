@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:digital_menu/client/widgets/input_fields.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -65,21 +64,6 @@ class _SignUpFormState extends State<SignUpForm> {
     setState(() {
       _isLoading = true;
     });
-
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: widget.emailController.text,
-        password: widget.passwordController.text,
-      );
-      // Handle success (e.g., navigate to another screen)
-    } on FirebaseAuthException catch (e) {
-      // Handle error (e.g., show a dialog or Snackbar)
-      print(e.message);
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
 
   @override
