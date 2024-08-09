@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:digital_menu/client/widgets/input_fields.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -21,6 +21,8 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  bool _isLoading = false;
+
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter an email address';
@@ -40,6 +42,29 @@ class _LoginFormState extends State<LoginForm> {
       return 'Password must be at least 6 characters';
     }
     return null;
+  }
+
+  Future<void> _logIn() async {
+    if (!widget.formKey.currentState!.validate()) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: widget.emailController.text,
+        password: widget.passwordController.text,
+      );
+      // Handle success (e.g., navigate to another screen)
+    } on FirebaseAuthException catch (e) {
+      // Handle error (e.g., show a dialog or Snackbar)
+      print(e.message);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -81,21 +106,16 @@ class _LoginFormState extends State<LoginForm> {
             hintText: "Enter your password",
             controller: widget.passwordController,
             validator: _validatePassword,
-            obscureText: true, // Hide password
+            obscureText: true,
           ),
           const SizedBox(height: 20.0),
           SizedBox(
             width: 400,
             child: ElevatedButton(
-              onPressed: () {
-                if (widget.formKey.currentState!.validate()) {
-                  // Handle form submission
-                  print('Email: ${widget.emailController.text}');
-                  print('Password: ${widget.passwordController.text}');
-                  // Add further actions here, like API calls, etc.
-                }
-              },
-              child: const Text('Log In'),
+              onPressed: _isLoading ? null : _logIn,
+              child: _isLoading
+                  ? CircularProgressIndicator()
+                  : const Text('Log In'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.greenAccent,
                 foregroundColor: Colors.white,

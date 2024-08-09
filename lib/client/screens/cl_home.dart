@@ -49,62 +49,67 @@ class Home extends ConsumerWidget {
     );
   }
 
+//design near the login card, chaged between different screen type
   Widget _buildSideContent(BuildContext context) {
     return Container(
       width: ResponsiveHelper.isMobile(context)
           ? double.infinity
-          : MediaQuery.of(context).size.width / 3.3,
+          : MediaQuery.of(context).size.width / 3.2,
       height: ResponsiveHelper.isMobile(context)
           ? null
           : MediaQuery.of(context).size.height,
-      color: Colors.yellow[600],
-      child: Padding(
-        padding: ResponsiveHelper.isMobile(context)
-            ? const EdgeInsets.all(20.0)
-            : const EdgeInsets.only(top: 70.0, right: 50.0, left: 50.0),
-        child: Align(
-          alignment: ResponsiveHelper.isMobile(context)
-              ? Alignment.center
-              : Alignment.centerRight,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              CircleAvatar(
-                backgroundColor: Colors.black87,
-                backgroundImage: NetworkImage(
-                  'https://media.finedinemenu.com/filters:strip_exif()/filters:format(webp)/475x475/JTMY8AYcI/831528d7-2b4e-4f22-a8d3-c7fa74380053.png',
-                ),
-                radius: 70.0,
+      decoration: BoxDecoration(
+        color: Colors.yellow[600],
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(40),
+          bottomLeft: Radius.circular(40),
+        ),
+      ),
+      padding: ResponsiveHelper.isMobile(context)
+          ? const EdgeInsets.all(20.0)
+          : const EdgeInsets.only(top: 70.0, right: 50.0, left: 50.0),
+      child: Align(
+        alignment: ResponsiveHelper.isMobile(context)
+            ? Alignment.center
+            : Alignment.centerRight,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const CircleAvatar(
+              backgroundColor: Colors.black87,
+              backgroundImage: NetworkImage(
+                'https://images.pexels.com/photos/1537635/pexels-photo-1537635.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
               ),
-              SizedBox(height: 30.0),
-              Text(
-                "Let's get you set up",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w900,
-                ),
-                textAlign: ResponsiveHelper.isMobile(context)
-                    ? TextAlign.center
-                    : TextAlign.left,
+              radius: 70.0,
+            ),
+            const SizedBox(height: 30.0),
+            Text(
+              "Let's get you set up",
+              style: const TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.w900,
               ),
-              SizedBox(height: 5.0),
-              Text(
-                "It should only take a couple of minutes to pair with your watch",
-                style: TextStyle(
-                  fontSize: 18.0,
-                ),
-                textAlign: TextAlign.center,
+              textAlign: ResponsiveHelper.isMobile(context)
+                  ? TextAlign.center
+                  : TextAlign.left,
+            ),
+            const SizedBox(height: 5.0),
+            const Text(
+              "It should only take a couple of minutes to pair with your watch",
+              style: TextStyle(
+                fontSize: 18.0,
               ),
-              SizedBox(height: 20.0),
-              CircleAvatar(
-                backgroundColor: Colors.black87,
-                child: Text(
-                  ">",
-                  style: TextStyle(color: Colors.yellow),
-                ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20.0),
+            const CircleAvatar(
+              backgroundColor: Colors.black87,
+              child: Text(
+                ">",
+                style: TextStyle(color: Colors.yellow),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

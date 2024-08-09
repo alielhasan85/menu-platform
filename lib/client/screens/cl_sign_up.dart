@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:digital_menu/client/widgets/input_fields.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -24,6 +25,7 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   bool _showConfirmPassword = false;
+  bool _isLoading = false;
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -54,6 +56,30 @@ class _SignUpFormState extends State<SignUpForm> {
     setState(() {
       _showConfirmPassword = isEmailValid && isPasswordValid;
     });
+  }
+
+// function for firebase authentication
+  Future<void> _signUp() async {
+    if (!widget.formKey.currentState!.validate()) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: widget.emailController.text,
+        password: widget.passwordController.text,
+      );
+      // Handle success (e.g., navigate to another screen)
+    } on FirebaseAuthException catch (e) {
+      // Handle error (e.g., show a dialog or Snackbar)
+      print(e.message);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -97,7 +123,7 @@ class _SignUpFormState extends State<SignUpForm> {
             controller: widget.passwordController,
             validator: _validatePassword,
             onChanged: (value) => _checkFields(),
-            obscureText: true, // Hide password
+            obscureText: true,
           ),
           if (_showConfirmPassword) const SizedBox(height: 20.0),
           if (_showConfirmPassword)
@@ -111,21 +137,16 @@ class _SignUpFormState extends State<SignUpForm> {
                 }
                 return null;
               },
-              obscureText: true, // Hide confirm password
+              obscureText: true,
             ),
           const SizedBox(height: 20.0),
           SizedBox(
             width: 400,
             child: ElevatedButton(
-              onPressed: () {
-                if (widget.formKey.currentState!.validate()) {
-                  // Handle form submission
-                  print('Email: ${widget.emailController.text}');
-                  print('Password: ${widget.passwordController.text}');
-                  // Add further actions here, like API calls, etc.
-                }
-              },
-              child: const Text('Create Account'),
+              onPressed: _isLoading ? null : _signUp,
+              child: _isLoading
+                  ? CircularProgressIndicator()
+                  : const Text('Create Account'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.greenAccent,
                 foregroundColor: Colors.white,
