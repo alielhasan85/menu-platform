@@ -1,4 +1,3 @@
-import 'package:digital_menu/services/responsive/responsive_helper.dart';
 import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
@@ -22,11 +21,11 @@ class InputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        double fieldWidth = ResponsiveHelper.isMobile(context)
-            ? MediaQuery.of(context).size.width / 1.5
-            : ResponsiveHelper.isTablet(context)
-                ? MediaQuery.of(context).size.width / 2.5
-                : MediaQuery.of(context).size.width / 3.7;
+        // double fieldWidth = ResponsiveHelper.isMobile(context)
+        //     ? MediaQuery.of(context).size.width / 1.5
+        //     : ResponsiveHelper.isTablet(context)
+        //         ? MediaQuery.of(context).size.width / 2.5
+        //         : MediaQuery.of(context).size.width / 3.7;
 
         return Row(
           children: <Widget>[
@@ -45,11 +44,11 @@ class InputField extends StatelessWidget {
                 color: Colors.blue.shade50,
                 child: TextFormField(
                   controller: controller,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15.0,
                   ),
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.blue.shade50,

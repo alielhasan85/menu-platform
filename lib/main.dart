@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import 'client/app.dart' as clientApp;
 import 'guest/app.dart' as guestApp;
 import 'admin/app.dart' as adminApp;
@@ -15,15 +13,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Ensure that Flutter's binding is initialized
-
-  // Initialize Firebase
-
   await dotenv.load(fileName: ".env");
 
   String appType = dotenv.env['APP_TYPE'] ?? 'client';
 
-  runApp(MyApp(appType: appType));
+  runApp(ProviderScope(child: MyApp(appType: appType)));
 }
 
 class MyApp extends StatelessWidget {
