@@ -9,6 +9,7 @@ import 'client/app.dart' as clientApp;
 import 'guest/app.dart' as guestApp;
 import 'admin/app.dart' as adminApp;
 
+// TODO: add theme controller class for font and colors
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

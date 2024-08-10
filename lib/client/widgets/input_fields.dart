@@ -30,44 +30,33 @@ class InputField extends StatelessWidget {
         return Row(
           children: <Widget>[
             Container(
-              width: 80.0,
+              width: 70.0,
               child: Text(
                 label,
                 textAlign: TextAlign.left,
               ),
             ),
             const SizedBox(
-              width: 15.0,
+              width: 10.0,
             ),
             Expanded(
-              child: Container(
-                color: Colors.blue.shade50,
-                child: TextFormField(
-                  controller: controller,
-                  style: const TextStyle(
-                    fontSize: 15.0,
-                  ),
-                  decoration: InputDecoration(
+              child: TextFormField(
+                controller: controller,
+                style: const TextStyle(fontSize: 15.0),
+                decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(10.0),
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.blue.shade50,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                        borderSide: BorderSide(color: Colors.blue.shade50),
+                        borderRadius: BorderRadius.circular(5.0)),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.blue.shade50,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                        borderSide: BorderSide(color: Colors.blue.shade50),
+                        borderRadius: BorderRadius.circular(5.0)),
                     hintText: hintText,
-                    fillColor: Colors.blue.shade50,
-                  ),
-                  validator: validator,
-                  onChanged: onChanged,
-                  obscureText: obscureText, // Use the property
-                ),
+                    filled: true,
+                    fillColor: Colors.blue.shade50),
+                validator: validator,
+                onChanged: onChanged,
+                obscureText: obscureText, // Use the property
               ),
             ),
           ],

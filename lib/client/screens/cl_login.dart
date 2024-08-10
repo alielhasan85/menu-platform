@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:digital_menu/client/widgets/input_fields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// TODO: add forget passworld page
+// TODO: add and check google login steps
+// TODO: add otp request with phone number
+
 class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;

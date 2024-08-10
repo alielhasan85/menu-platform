@@ -4,6 +4,8 @@ import 'package:digital_menu/client/screens/cl_login.dart';
 import 'package:digital_menu/services/responsive/responsive_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// TODO: responsive of login card - dont have account in case landscape
+// TODO: revise the marcketing message of the side content
 final authFormProvider = StateProvider<AuthForm>((ref) => AuthForm.login);
 
 enum AuthForm { login, signUp }
