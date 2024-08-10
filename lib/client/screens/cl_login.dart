@@ -1,3 +1,4 @@
+import 'package:digital_menu/client/screens/cl_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:digital_menu/client/widgets/input_fields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -56,7 +57,12 @@ class _LoginFormState extends State<LoginForm> {
         email: widget.emailController.text,
         password: widget.passwordController.text,
       );
-      // Handle success (e.g., navigate to another screen)
+
+      // Navigate to MainPage on successful login
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MainPage()),
+      );
     } on FirebaseAuthException catch (e) {
       // Handle error (e.g., show a dialog or Snackbar)
       print(e.message);
