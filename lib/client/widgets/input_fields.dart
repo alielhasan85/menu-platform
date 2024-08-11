@@ -29,7 +29,7 @@ class InputField extends StatelessWidget {
 
         return Row(
           children: <Widget>[
-            Container(
+            SizedBox(
               width: 70.0,
               child: Text(
                 label,

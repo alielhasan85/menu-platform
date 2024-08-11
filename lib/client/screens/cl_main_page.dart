@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final selectedSectionProvider = StateProvider<String>((ref) => 'Dashboard');
 
 class MainPage extends ConsumerWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

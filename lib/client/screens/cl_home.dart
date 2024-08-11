@@ -4,7 +4,7 @@ import 'package:digital_menu/client/screens/cl_login.dart';
 import 'package:digital_menu/services/responsive/responsive_helper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// TODO: responsive of login card - dont have account in case landscape
+// TODO: responsive of login card - dont have account in case landscape not working
 // TODO: revise the marcketing message of the side content
 final authFormProvider = StateProvider<AuthForm>((ref) => AuthForm.login);
 
@@ -69,7 +69,7 @@ class Home extends ConsumerWidget {
                 //     bottomLeft: Radius.circular(40),
                 //   )
                 ),
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             // const EdgeInsets.only(top: 70.0, right: 50.0, left: 50.0),
             child: const Align(
               alignment: Alignment.center,
@@ -77,24 +77,24 @@ class Home extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const CircleAvatar(
+                  CircleAvatar(
                     backgroundColor: Colors.black87,
                     backgroundImage: NetworkImage(
                       'https://images.pexels.com/photos/1537635/pexels-photo-1537635.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                     ),
                     radius: 70.0,
                   ),
-                  const SizedBox(height: 30.0),
+                  SizedBox(height: 30.0),
                   Text("Let's get you set up",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w900,
                       ),
                       textAlign: TextAlign.center
                       // TextAlign.left,
                       ),
-                  const SizedBox(height: 5.0),
-                  const Text(
+                  SizedBox(height: 5.0),
+                  Text(
                     "It should only take a couple of minutes to pair with your watch",
                     style: TextStyle(
                       fontSize: 18.0,
