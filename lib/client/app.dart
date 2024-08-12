@@ -1,4 +1,5 @@
 import 'package:digital_menu/client/screens/cl_home.dart';
+import 'package:digital_menu/client/screens/test.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const Home(),
+      home: Home(),
     );
   }
 }
